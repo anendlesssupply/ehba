@@ -86,7 +86,9 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             </>
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
+          <SanityLive
+          // onError={handleError}
+          />
           <section
             // className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-baseline gap-12"
             className="grid grid-cols-1 items-start"
