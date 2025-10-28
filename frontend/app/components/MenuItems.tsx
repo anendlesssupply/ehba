@@ -4,10 +4,11 @@ import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import classnames from 'classnames'
 import {resolveHref} from '@/sanity/lib/utils'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import IconLogo from './IconLogo'
 import IconClose from './IconClose'
 import IconMenu from './IconMenu'
+import {useAppContext} from '../app-provider'
 
 export const NavItem = ({
   menuItem,
@@ -61,12 +62,12 @@ export default function MenuItems({
   isMobile = false,
   title = 'EHBA',
 }: any) {
-  const [isOpen, setIsOpen] = useState(false)
+  const {isNavOpen, setIsNavOpen} = useAppContext()
   const pathname = usePathname()
 
   useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsNavOpen(false)
+  }, [setIsNavOpen, pathname])
   return (
     <>
       <div className="grid gap-6 lg:gap-8 grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[auto_minmax(0,1fr)] items-baseline">
@@ -81,15 +82,15 @@ export default function MenuItems({
         </div>
         <button
           className="lg:hidden text-3xl cursor-pointer hover:opacity-70"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-expanded={isOpen} // tells screen readers if the menu is open
+          onClick={() => setIsNavOpen((prev: boolean) => !prev)}
+          aria-expanded={isNavOpen} // tells screen readers if the menu is open
           aria-controls="mobile-menu" // links button to the controlled element
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isNavOpen ? 'Close menu' : 'Open menu'}
         >
-          {/* {isOpen ? `Close` : `Menu`} */}
-          {isOpen ? <IconClose className="w-8 h-8" /> : <IconMenu className="w-8 h-8" />}
+          {/* {isNavOpen ? `Close` : `Menu`} */}
+          {isNavOpen ? <IconClose className="w-8 h-8" /> : <IconMenu className="w-8 h-8" />}
         </button>
-        {isOpen && (
+        {isNavOpen && (
           <nav
             id="mobile-menu"
             aria-label="Main menu"
