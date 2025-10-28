@@ -15,6 +15,7 @@ import {handleError} from './client-utils'
 
 import localFont from 'next/font/local'
 import {AppProvider} from '@/app/app-provider'
+import Footer from './components/Footer'
 
 const sans = localFont({
   variable: '--font-sans',
@@ -73,8 +74,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${sans.variable} bg-bg text-fg`}>
-      <body>
+    <html lang="en" className={sans.variable}>
+      <body className="text-xl">
         <AppProvider>
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
@@ -94,8 +95,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             className="grid grid-cols-1 items-start"
           >
             <Header />
-            <main>{children}</main>
-            {/* <Footer /> */}
+            <main className="grid grid-cols-1 items-start gap-8">{children}</main>
+            <Footer />
           </section>
         </AppProvider>
       </body>

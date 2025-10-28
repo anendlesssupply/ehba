@@ -125,53 +125,6 @@ export type FileDownload = {
   }
 }
 
-export type Figure = {
-  _type: 'figure'
-  asset?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-  }
-  media?: unknown
-  hotspot?: SanityImageHotspot
-  crop?: SanityImageCrop
-  caption?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
-    markDefs?: Array<{
-      linkType?: 'href' | 'email' | 'page' | 'post'
-      href?: string
-      email?: string
-      page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
-      post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  alt?: string
-}
-
 export type BlockContent = Array<
   | {
       children?: Array<{
@@ -206,9 +159,53 @@ export type BlockContent = Array<
       _type: 'block'
       _key: string
     }
-  | ({
+  | {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal'
+        listItem?: never
+        markDefs?: Array<{
+          linkType?: 'href' | 'email' | 'page' | 'post'
+          href?: string
+          email?: string
+          page?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'page'
+          }
+          post?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'post'
+          }
+          openInNewTab?: boolean
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+      alt?: string
+      _type: 'figure'
       _key: string
-    } & Figure)
+    }
   | ({
       _key: string
     } & HtmlEmbed)
@@ -263,7 +260,22 @@ export type Settings = {
     _type: 'menuItem'
     _key: string
   }>
+  coverImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    caption?: BlockText
+    alt?: string
+    _type: 'figure'
+  }
   content?: BlockContent
+  footer?: BlockContent
   description?: BlockText
   ogImage?: {
     asset?: {
@@ -290,9 +302,21 @@ export type Page = {
   title: string
   slug: Slug
   pageBuilder?: Array<
-    | ({
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: BlockText
+        alt?: string
+        _type: 'figure'
         _key: string
-      } & Figure)
+      }
     | ({
         _key: string
       } & StandardText)
@@ -337,6 +361,21 @@ export type Post = {
     alt?: string
     _type: 'image'
   }
+}
+
+export type Figure = {
+  _type: 'figure'
+  asset?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+  }
+  media?: unknown
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+  caption?: BlockText
+  alt?: string
 }
 
 export type Link = {
@@ -483,12 +522,12 @@ export type AllSanitySchemaTypes =
   | StandardText
   | HtmlEmbed
   | FileDownload
-  | Figure
   | BlockContent
   | BlockText
   | Settings
   | Page
   | Post
+  | Figure
   | Link
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -512,8 +551,6 @@ export type GetPageQueryResult = {
   slug: Slug
   pageBuilder: Array<
     | {
-        _key: string
-        _type: 'figure'
         asset?: {
           _ref: string
           _type: 'reference'
@@ -523,40 +560,10 @@ export type GetPageQueryResult = {
         media?: unknown
         hotspot?: SanityImageHotspot
         crop?: SanityImageCrop
-        caption?: Array<{
-          children?: Array<{
-            marks?: Array<string>
-            text?: string
-            _type: 'span'
-            _key: string
-          }>
-          style?: 'normal'
-          listItem?: never
-          markDefs?: Array<{
-            linkType?: 'email' | 'href' | 'page' | 'post'
-            href?: string
-            email?: string
-            page?: {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
-            }
-            post?: {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'post'
-            }
-            openInNewTab?: boolean
-            _type: 'link'
-            _key: string
-          }>
-          level?: number
-          _type: 'block'
-          _key: string
-        }>
+        caption?: BlockText
         alt?: string
+        _type: 'figure'
+        _key: string
       }
     | {
         _key: string
@@ -1229,8 +1236,6 @@ export type PostQueryResult = {
         _key: string
       }
     | {
-        _key: string
-        _type: 'figure'
         asset?: {
           _ref: string
           _type: 'reference'
@@ -1386,6 +1391,8 @@ export type PostQueryResult = {
           _key: string
         }> | null
         alt: string | null
+        _type: 'figure'
+        _key: string
         id: string | null
         aspectRatio: number | null
         width: number | null
@@ -1586,7 +1593,7 @@ export type PagesSlugsResult = Array<{
   slug: string
 }>
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{  ...,  menuItems[]{    link{          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  },  description[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  },  content[]{      ...,  (_type == 'figure') => {    ...,      "id": asset._ref,  "aspectRatio": asset->metadata.dimensions.aspectRatio,  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height,  "preview": asset->metadata.lqip,  hotspot,  crop,  "maxWidth": coalesce(maxWidth, null),  alt,  "caption":caption[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }  },  (_type == 'htmlEmbed') => {    ...  },  (_type == 'fileDownload') => {    ...,      file {    asset->{      originalFilename,      mimeType,      url,      size,      extension    }  }  },  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }}
+// Query: *[_type == "settings"][0]{  ...,  menuItems[]{    link{          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  },  description[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  },  coverImage{      "id": asset._ref,  "aspectRatio": asset->metadata.dimensions.aspectRatio,  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height,  "preview": asset->metadata.lqip,  hotspot,  crop,  "maxWidth": coalesce(maxWidth, null),  alt,  "caption":caption[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }  },  content[]{      ...,  (_type == 'figure') => {    ...,      "id": asset._ref,  "aspectRatio": asset->metadata.dimensions.aspectRatio,  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height,  "preview": asset->metadata.lqip,  hotspot,  crop,  "maxWidth": coalesce(maxWidth, null),  alt,  "caption":caption[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }  },  (_type == 'htmlEmbed') => {    ...  },  (_type == 'fileDownload') => {    ...,      file {    asset->{      originalFilename,      mimeType,      url,      size,      extension    }  }  },  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  },  footer[]{      ...,  (_type == 'figure') => {    ...,      "id": asset._ref,  "aspectRatio": asset->metadata.dimensions.aspectRatio,  "width": asset->metadata.dimensions.width,  "height": asset->metadata.dimensions.height,  "preview": asset->metadata.lqip,  hotspot,  crop,  "maxWidth": coalesce(maxWidth, null),  alt,  "caption":caption[]{      ...,  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }  },  (_type == 'htmlEmbed') => {    ...  },  (_type == 'fileDownload') => {    ...,      file {    asset->{      originalFilename,      mimeType,      url,      size,      extension    }  }  },  markDefs[]{    ...,    (_type == 'link') => {          "_key": coalesce(_key, ^._key),    _type,    openInNewTab,    (linkType == "page") => {        "slug": page->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(page->title, title, "Link")          ),        "linkType": "page"    },    (linkType == "post") => {        "slug": post->slug.current,        "title": select(            hasCustomTitle => title,            coalesce(post->title, title, "Link")          ),        "linkType": "post"    },    (linkType == "email") => {        email,        "slug": "mailto:" + coalesce(email, ""),        "title": coalesce(title, "Link"),        "linkType": "email"    },    (linkType == "href") => {      "slug": href,      "title": coalesce(title, "Link"),      "linkType": "href"    }    },  }  }}
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
@@ -1644,6 +1651,162 @@ export type SettingsQueryResult = {
           openInNewTab: boolean | null
         }
   }> | null
+  coverImage: {
+    id: string | null
+    aspectRatio: number | null
+    width: number | null
+    height: number | null
+    preview: string | null
+    hotspot: SanityImageHotspot | null
+    crop: SanityImageCrop | null
+    maxWidth: null
+    alt: string | null
+    caption: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal'
+      listItem?: never
+      markDefs: Array<
+        | {
+            linkType: 'href'
+            href?: string
+            email?: string
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+            slug: string | null
+            title: 'Link'
+          }
+        | {
+            linkType: 'page'
+            href?: string
+            email?: string
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+            slug: string | null
+            title: string | 'Link'
+          }
+        | {
+            linkType: 'post'
+            href?: string
+            email?: string
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+            slug: string | null
+            title: string | 'Link'
+          }
+        | {
+            linkType?: 'email' | 'href' | 'page' | 'post'
+            href?: string
+            email?: string
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+          }
+        | {
+            linkType: 'email'
+            href?: string
+            email: string | null
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+            slug: string | 'mailto:'
+            title: 'Link'
+          }
+        | {
+            linkType: 'href'
+            href?: string
+            email: string | null
+            page?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+            post?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'post'
+            }
+            openInNewTab: boolean | null
+            _type: 'link'
+            _key: string
+            slug: string | null
+            title: 'Link'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  } | null
   content: Array<
     | {
         children?: Array<{
@@ -1791,8 +1954,6 @@ export type SettingsQueryResult = {
         _key: string
       }
     | {
-        _key: string
-        _type: 'figure'
         asset?: {
           _ref: string
           _type: 'reference'
@@ -1948,6 +2109,342 @@ export type SettingsQueryResult = {
           _key: string
         }> | null
         alt: string | null
+        _type: 'figure'
+        _key: string
+        id: string | null
+        aspectRatio: number | null
+        width: number | null
+        height: number | null
+        preview: string | null
+        maxWidth: null
+        markDefs: null
+      }
+    | {
+        _key: string
+        _type: 'fileDownload'
+        title?: string
+        file: {
+          asset: {
+            originalFilename: string | null
+            mimeType: string | null
+            url: string | null
+            size: number | null
+            extension: string | null
+          } | null
+        } | null
+        markDefs: null
+      }
+    | {
+        _key: string
+        _type: 'htmlEmbed'
+        html?: string
+        markDefs: null
+      }
+  > | null
+  footer: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'blockquote' | 'h2' | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              linkType: 'href'
+              href?: string
+              email?: string
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+              slug: string | null
+              title: 'Link'
+            }
+          | {
+              linkType: 'page'
+              href?: string
+              email?: string
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+              slug: string | null
+              title: string | 'Link'
+            }
+          | {
+              linkType: 'post'
+              href?: string
+              email?: string
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+              slug: string | null
+              title: string | 'Link'
+            }
+          | {
+              linkType?: 'email' | 'href' | 'page' | 'post'
+              href?: string
+              email?: string
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+            }
+          | {
+              linkType: 'email'
+              href?: string
+              email: string | null
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+              slug: string | 'mailto:'
+              title: 'Link'
+            }
+          | {
+              linkType: 'href'
+              href?: string
+              email: string | null
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              post?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'post'
+              }
+              openInNewTab: boolean | null
+              _type: 'link'
+              _key: string
+              slug: string | null
+              title: 'Link'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot: SanityImageHotspot | null
+        crop: SanityImageCrop | null
+        caption: Array<{
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal'
+          listItem?: never
+          markDefs: Array<
+            | {
+                linkType: 'href'
+                href?: string
+                email?: string
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+                slug: string | null
+                title: 'Link'
+              }
+            | {
+                linkType: 'page'
+                href?: string
+                email?: string
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+                slug: string | null
+                title: string | 'Link'
+              }
+            | {
+                linkType: 'post'
+                href?: string
+                email?: string
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+                slug: string | null
+                title: string | 'Link'
+              }
+            | {
+                linkType?: 'email' | 'href' | 'page' | 'post'
+                href?: string
+                email?: string
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+              }
+            | {
+                linkType: 'email'
+                href?: string
+                email: string | null
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+                slug: string | 'mailto:'
+                title: 'Link'
+              }
+            | {
+                linkType: 'href'
+                href?: string
+                email: string | null
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                post?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'post'
+                }
+                openInNewTab: boolean | null
+                _type: 'link'
+                _key: string
+                slug: string | null
+                title: 'Link'
+              }
+          > | null
+          level?: number
+          _type: 'block'
+          _key: string
+        }> | null
+        alt: string | null
+        _type: 'figure'
+        _key: string
         id: string | null
         aspectRatio: number | null
         width: number | null
@@ -2163,7 +2660,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "post" && slug.current == $slug] [0] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  "date": coalesce(date, _updatedAt)\n,\n    content[]{\n      \n  ...,\n  (_type == \'figure\') => {\n    ...,\n    \n  "id": asset._ref,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio,\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height,\n  "preview": asset->metadata.lqip,\n  hotspot,\n  crop,\n  "maxWidth": coalesce(maxWidth, null),\n  alt,\n  "caption":caption[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n\n  },\n  (_type == \'htmlEmbed\') => {\n    ...\n  },\n  (_type == \'fileDownload\') => {\n    ...,\n    \n  file {\n    asset->{\n      originalFilename,\n      mimeType,\n      url,\n      size,\n      extension\n    }\n  }\n\n  },\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n    },\n    ogImage,\n    description[]{\n      \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n    }\n  }\n': PostQueryResult
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
-    '*[_type == "settings"][0]{\n  ...,\n  menuItems[]{\n    link{\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  },\n  description[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  },\n  content[]{\n    \n  ...,\n  (_type == \'figure\') => {\n    ...,\n    \n  "id": asset._ref,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio,\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height,\n  "preview": asset->metadata.lqip,\n  hotspot,\n  crop,\n  "maxWidth": coalesce(maxWidth, null),\n  alt,\n  "caption":caption[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n\n  },\n  (_type == \'htmlEmbed\') => {\n    ...\n  },\n  (_type == \'fileDownload\') => {\n    ...,\n    \n  file {\n    asset->{\n      originalFilename,\n      mimeType,\n      url,\n      size,\n      extension\n    }\n  }\n\n  },\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n}': SettingsQueryResult
+    '*[_type == "settings"][0]{\n  ...,\n  menuItems[]{\n    link{\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  },\n  description[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  },\n  coverImage{\n    \n  "id": asset._ref,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio,\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height,\n  "preview": asset->metadata.lqip,\n  hotspot,\n  crop,\n  "maxWidth": coalesce(maxWidth, null),\n  alt,\n  "caption":caption[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n\n  },\n  content[]{\n    \n  ...,\n  (_type == \'figure\') => {\n    ...,\n    \n  "id": asset._ref,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio,\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height,\n  "preview": asset->metadata.lqip,\n  hotspot,\n  crop,\n  "maxWidth": coalesce(maxWidth, null),\n  alt,\n  "caption":caption[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n\n  },\n  (_type == \'htmlEmbed\') => {\n    ...\n  },\n  (_type == \'fileDownload\') => {\n    ...,\n    \n  file {\n    asset->{\n      originalFilename,\n      mimeType,\n      url,\n      size,\n      extension\n    }\n  }\n\n  },\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  },\n  footer[]{\n    \n  ...,\n  (_type == \'figure\') => {\n    ...,\n    \n  "id": asset._ref,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio,\n  "width": asset->metadata.dimensions.width,\n  "height": asset->metadata.dimensions.height,\n  "preview": asset->metadata.lqip,\n  hotspot,\n  crop,\n  "maxWidth": coalesce(maxWidth, null),\n  alt,\n  "caption":caption[]{\n    \n  ...,\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n\n  },\n  (_type == \'htmlEmbed\') => {\n    ...\n  },\n  (_type == \'fileDownload\') => {\n    ...,\n    \n  file {\n    asset->{\n      originalFilename,\n      mimeType,\n      url,\n      size,\n      extension\n    }\n  }\n\n  },\n  markDefs[]{\n    ...,\n    (_type == \'link\') => {\n      \n    "_key": coalesce(_key, ^._key),\n    _type,\n    openInNewTab,\n    (linkType == "page") => {\n        "slug": page->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(page->title, title, "Link")\n          ),\n        "linkType": "page"\n    },\n    (linkType == "post") => {\n        "slug": post->slug.current,\n        "title": select(\n            hasCustomTitle => title,\n            coalesce(post->title, title, "Link")\n          ),\n        "linkType": "post"\n    },\n    (linkType == "email") => {\n        email,\n        "slug": "mailto:" + coalesce(email, ""),\n        "title": coalesce(title, "Link"),\n        "linkType": "email"\n    },\n    (linkType == "href") => {\n      "slug": href,\n      "title": coalesce(title, "Link"),\n      "linkType": "href"\n    }\n\n    },\n  }\n\n  }\n}': SettingsQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
   }
 }

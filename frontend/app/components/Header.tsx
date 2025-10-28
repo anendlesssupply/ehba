@@ -10,14 +10,20 @@ export default async function Header() {
   })
 
   return (
-    <header className="sticky top-0 z-50">
-      <div className="p-4 grid gap-4">
-        <Link href="/" title={settings?.title || 'EHBA'}>
-          <span className="flex w-auto h-12 aspect-783/129">
+    <header
+      className="px-4 pt-8 pb-12 lg:pt-12 lg:px-10 lg:sticky lg:top-0 lg:z-50"
+      // bg-off-white dark:bg-black
+    >
+      <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-baseline">
+        <div>
+          <Link
+            href="/"
+            title={settings?.title || 'EHBA'}
+            className="flex w-auto h-11 aspect-783/129 hover:opacity-70"
+          >
             <IconLogo className="w-full h-full" />
-            {/* {settings?.title || 'EHBA'} */}
-          </span>
-        </Link>
+          </Link>
+        </div>
         <MenuItems menuItems={settings?.menuItems || []} />
       </div>
     </header>

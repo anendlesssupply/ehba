@@ -16,26 +16,24 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
   })
 
   return (
-    <article data-sanity={attr()} key={_id} className="px-4">
-      <div>
-        <Link className="underline hover:no-underline" href={`/posts/${slug}`}>
-          <h3>{title}</h3>
-        </Link>
-      </div>
-      <div>
-        <time dateTime={date}>
-          <DateComponent dateString={date} />
-        </time>
-      </div>
+    <article data-sanity={attr()} key={_id}>
+      <Link className="hover:opacity-70" href={`/posts/${slug}`}>
+        <h3>{title}</h3>
+        {date && (
+          <time dateTime={date} className="text-base">
+            <DateComponent dateString={date} />
+          </time>
+        )}
+      </Link>
     </article>
   )
 }
 
 const Posts = ({children, heading}: {children: React.ReactNode; heading?: string}) => (
-  <div className="px-4 my-4">
-    <div className="py-4 grid grid-cols-1 gap-4 border border-current max-w-2xl">
-      {heading && <h2 className="px-4">{heading}</h2>}
-      <div>{children}</div>
+  <div className="px-4 lg:px-10 py-8 bg-yellow dark:bg-grey-brown ">
+    <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto w-full">
+      {heading && <h2 className="text-3xl">{heading}</h2>}
+      <div className="grid grid-cols-1 gap-8">{children}</div>
     </div>
   </div>
 )
@@ -67,7 +65,7 @@ export const AllPosts = async () => {
   }
 
   return (
-    <Posts heading="Recent Posts">
+    <Posts heading="Announcements">
       {data.map((post: any) => (
         <Post key={post._id} post={post} />
       ))}

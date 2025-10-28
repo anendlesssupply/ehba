@@ -170,7 +170,13 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   description[]{
     ${textFields}
   },
+  coverImage{
+    ${imageAssetFields}
+  },
   content[]{
+    ${bodyFields}
+  },
+  footer[]{
     ${bodyFields}
   }
 }`)

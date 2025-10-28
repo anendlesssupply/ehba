@@ -55,11 +55,7 @@ function renderEmptyState(page: GetPageQueryResult) {
   if (!page) {
     return null
   }
-  return (
-    <div>
-      <h1>This page has no content!</h1>
-    </div>
-  )
+  return null
 }
 
 export default function PageBuilder({page}: PageBuilderPageProps) {

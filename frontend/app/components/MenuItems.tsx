@@ -19,8 +19,8 @@ export const NavItem = ({
     return null
   }
 
-  const linkClassName = classnames('hover:underline', {
-    underline: pathname === href,
+  const linkClassName = classnames('hover:opacity-70', {
+    'opacity-70': pathname === href,
   })
   return (
     <>
@@ -53,7 +53,7 @@ export const NavItem = ({
 
 export default function MenuItems({
   menuItems,
-  className = 'flex flex-wrap gap-4',
+  className = 'flex flex-wrap gap-4 text-xl lg:text-3xl lg:gap-6',
   isMobile = false,
 }: any) {
   return (

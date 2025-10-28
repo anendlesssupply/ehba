@@ -8,6 +8,9 @@ import CustomPortableText from '@/app/components/CustomPortableText'
 import {sanityFetch} from '@/sanity/lib/live'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
+import Link from 'next/link'
+import IconClose from '@/app/components/IconClose'
+import DateComponent from '@/app/components/Date'
 
 type Props = {
   params: Promise<{slug: string}>
@@ -61,26 +64,35 @@ export default async function PostPage(props: Props) {
 
   return (
     <>
-      <div>
-        <header className="my-4 max-w-2xl">
-          <h2 className="px-4 text-5xl">{post.title}</h2>
-        </header>
-        <article className="my-4 max-w-2xl">
+      <div className="grid gap-8 mb-12 mt-4 lg:mt-12">
+        <div
+          className="hidden lg:block px-4 lg:px-10 lg:fixed lg:top-50"
+          // className="px-4 lg:px-10 flex justify-end lg:sticky lg:top-14 lg:z-60"
+        >
+          <Link href="/">
+            <IconClose className="w-10 h-10" />
+          </Link>
+        </div>
+        <div className="px-4 lg:px-10">
+          <div className="w-full max-w-3xl mx-auto grid gap-4">
+            <h2 className="text-3xl lg:text-5xl">{post.title}</h2>
+            {post?.date && (
+              <time dateTime={post.date} className="text-base">
+                <DateComponent dateString={post.date} />
+              </time>
+            )}
+          </div>
+        </div>
+
+        <article className="px-4 lg:px-10 my-4">
           {post.content?.length && (
             <CustomPortableText
-              className="px-4 grid gap-4"
+              className="max-w-3xl mx-auto grid gap-4"
               value={post.content as PortableTextBlock[]}
             />
           )}
         </article>
       </div>
-      {/* <div>
-        <div>
-          <aside>
-            <Suspense>{await MorePosts({skip: post._id, limit: 2})}</Suspense>
-          </aside>
-        </div>
-      </div> */}
     </>
   )
 }

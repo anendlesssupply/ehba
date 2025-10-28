@@ -42,7 +42,7 @@ export default function CustomPortableText({
     marks: {
       link: ({children, value: link}) => {
         return (
-          <ResolvedLink className="underline hover:no-underline" link={link}>
+          <ResolvedLink className="underline hover:opacity-70 hover:no-underline" link={link}>
             {children}
           </ResolvedLink>
         )
@@ -87,7 +87,7 @@ export function SimplePortableText({
     marks: {
       link: ({children, value: link}) => {
         return (
-          <ResolvedLink className="underline hover:no-underline" link={link}>
+          <ResolvedLink className="underline hover:opacity-70 hover:no-underline" link={link}>
             {children}
           </ResolvedLink>
         )

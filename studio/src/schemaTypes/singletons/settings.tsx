@@ -79,9 +79,21 @@ export const settings = defineType({
       ],
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'figure',
+      description: 'Used on the Homepage',
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       description: 'Used on the Homepage',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'footer',
+      title: 'Footer',
+      description: 'Used for the Site Footer',
       type: 'blockContent',
     }),
     defineField({
