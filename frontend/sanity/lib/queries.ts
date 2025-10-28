@@ -22,6 +22,7 @@ const linkReference = /* groq */ `
             hasCustomTitle => title,
             coalesce(page->title, title, "Link")
           ),
+        "page": page->slug.current,
         "linkType": "page"
     },
     (linkType == "post") => {
@@ -30,6 +31,7 @@ const linkReference = /* groq */ `
             hasCustomTitle => title,
             coalesce(post->title, title, "Link")
           ),
+        "post": post->slug.current,
         "linkType": "post"
     },
     (linkType == "email") => {

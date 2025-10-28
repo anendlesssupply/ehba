@@ -74,7 +74,7 @@ export default function MenuItems({
           <Link
             href="/"
             title={title}
-            className="flex w-auto h-9 lg:h-11 aspect-783/129 hover:opacity-70"
+            className="flex w-auto h-8 lg:h-11 aspect-783/129 hover:opacity-70"
           >
             <IconLogo className="w-full h-full" />
           </Link>
