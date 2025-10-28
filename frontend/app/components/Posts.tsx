@@ -31,9 +31,9 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
 
 const Posts = ({children, heading}: {children: React.ReactNode; heading?: string}) => (
   <div className="px-4 lg:px-10 py-8 bg-yellow dark:bg-grey-brown ">
-    <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto w-full">
+    <div className="grid grid-cols-1 gap-6 lg:gap-8 max-w-3xl mx-auto w-full">
       {heading && <h2 className="text-3xl">{heading}</h2>}
-      <div className="grid grid-cols-1 gap-8">{children}</div>
+      <div className="grid grid-cols-1 gap-6 lg:gap-8">{children}</div>
     </div>
   </div>
 )

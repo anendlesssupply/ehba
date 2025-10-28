@@ -4,6 +4,10 @@ import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import classnames from 'classnames'
 import {resolveHref} from '@/sanity/lib/utils'
+import {useEffect, useState} from 'react'
+import IconLogo from './IconLogo'
+import IconClose from './IconClose'
+import IconMenu from './IconMenu'
 
 export const NavItem = ({
   menuItem,
@@ -23,7 +27,7 @@ export const NavItem = ({
     'opacity-70': pathname === href,
   })
   return (
-    <>
+    <div>
       <Link
         href={href || '/'}
         className={linkClassName}
@@ -47,22 +51,63 @@ export const NavItem = ({
           <>{menuItem?.link?.title ?? 'Link'}</>
         )}
       </Link>
-    </>
+    </div>
   )
 }
 
 export default function MenuItems({
   menuItems,
-  className = 'flex flex-wrap gap-4 text-xl lg:text-3xl lg:gap-6',
+  // className = 'flex flex-col lg:flex-row lg:flex-wrap text-3xl lg:gap-x-6',
   isMobile = false,
+  title = 'EHBA',
 }: any) {
+  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
   return (
     <>
-      <nav className={className}>
-        {Array.isArray(menuItems) && menuItems?.length > 0 && (
-          <MenuItemsRenderer menuItems={menuItems} isMobile={isMobile} />
+      <div className="grid gap-6 lg:gap-8 grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[auto_minmax(0,1fr)] items-baseline">
+        <div>
+          <Link
+            href="/"
+            title={title}
+            className="flex w-auto h-9 lg:h-11 aspect-783/129 hover:opacity-70"
+          >
+            <IconLogo className="w-full h-full" />
+          </Link>
+        </div>
+        <button
+          className="lg:hidden text-3xl cursor-pointer hover:opacity-70"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-expanded={isOpen} // tells screen readers if the menu is open
+          aria-controls="mobile-menu" // links button to the controlled element
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        >
+          {/* {isOpen ? `Close` : `Menu`} */}
+          {isOpen ? <IconClose className="w-8 h-8" /> : <IconMenu className="w-8 h-8" />}
+        </button>
+        {isOpen && (
+          <nav
+            id="mobile-menu"
+            aria-label="Main menu"
+            className={
+              'border-b-4 border-double pb-6 col-span-full flex lg:hidden flex-col text-3xl gap-y-2'
+            }
+          >
+            {Array.isArray(menuItems) && menuItems?.length > 0 && (
+              <MenuItemsRenderer menuItems={menuItems} isMobile={isMobile} />
+            )}
+          </nav>
         )}
-      </nav>
+        <nav className={'hidden lg:flex flex-col lg:flex-row lg:flex-wrap text-3xl lg:gap-x-6'}>
+          {Array.isArray(menuItems) && menuItems?.length > 0 && (
+            <MenuItemsRenderer menuItems={menuItems} isMobile={isMobile} />
+          )}
+        </nav>
+      </div>
     </>
   )
 }

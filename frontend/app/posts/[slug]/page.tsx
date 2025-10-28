@@ -64,7 +64,7 @@ export default async function PostPage(props: Props) {
 
   return (
     <>
-      <div className="grid gap-8 mb-12 mt-4 lg:mt-12">
+      <div className="grid gap-6 lg:gap-8 mb-12 mt-4 lg:mt-12">
         <div
           className="hidden lg:block px-4 lg:px-10 lg:fixed lg:top-50"
           // className="px-4 lg:px-10 flex justify-end lg:sticky lg:top-14 lg:z-60"

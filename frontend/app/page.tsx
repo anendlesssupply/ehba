@@ -19,7 +19,7 @@ export default async function Page() {
           <figure className="grid grid-cols-1 gap-2 mb-12">
             <div>
               <CustomImage
-                className="h-screen sm:h-auto sm:aspect-3/2 object-cover grayscale"
+                className="h-[80vh] sm:h-auto sm:aspect-3/2 object-cover grayscale"
                 image={settings?.coverImage}
                 alt={stegaClean(settings?.coverImage?.alt) || ''}
                 sizes="100vw"

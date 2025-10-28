@@ -53,7 +53,7 @@ export default async function Page(props: Props) {
   }
 
   return (
-    <div className="grid gap-8 mb-12 mt-4 lg:mt-12">
+    <div className="grid gap-6 lg:gap-8 mb-12 mt-4 lg:mt-12">
       <div className="px-4 lg:px-10">
         <h2 className="text-3xl lg:text-5xl w-full max-w-3xl mx-auto">{page.title}</h2>
       </div>

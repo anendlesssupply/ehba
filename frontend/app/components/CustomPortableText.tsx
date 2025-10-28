@@ -26,7 +26,7 @@ export default function CustomPortableText({
     block: {
       h2: ({children, value}) => {
         // Add an anchor to the h2
-        return <h2 className="text-3xl mt-8 mb-4 first:mt-0 last:mb-0">{children}</h2>
+        return <h2 className="text-2xl lg:text-3xl mt-8 mb-4 first:mt-0 last:mb-0">{children}</h2>
       },
       normal: ({children}: {children?: any}) => {
         return <p className="text-pretty">{children}</p>

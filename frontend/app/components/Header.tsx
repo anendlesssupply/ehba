@@ -10,22 +10,8 @@ export default async function Header() {
   })
 
   return (
-    <header
-      className="px-4 pt-8 pb-12 lg:pt-12 lg:px-10 lg:sticky lg:top-0 lg:z-50"
-      // bg-off-white dark:bg-black
-    >
-      <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-baseline">
-        <div>
-          <Link
-            href="/"
-            title={settings?.title || 'EHBA'}
-            className="flex w-auto h-11 aspect-783/129 hover:opacity-70"
-          >
-            <IconLogo className="w-full h-full" />
-          </Link>
-        </div>
-        <MenuItems menuItems={settings?.menuItems || []} />
-      </div>
+    <header className="px-4 pt-8 pb-8 lg:pt-12 lg:px-10 sticky top-0 z-50 bg-white lg:bg-none">
+      <MenuItems title={settings?.title} menuItems={settings?.menuItems || []} />
     </header>
   )
 }
