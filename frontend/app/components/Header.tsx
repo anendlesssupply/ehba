@@ -8,7 +8,7 @@ export default async function Header() {
   })
 
   return (
-    <header className="px-4 pt-8 pb-8 lg:pt-12 lg:px-10 lg:sticky lg:top-0 lg:z-50 bg-white dark:bg-black lg:bg-transparent">
+    <header className="px-4 pt-8 pb-8 lg:pt-12 lg:px-10 lg:sticky lg:top-0 lg:z-50 bg-white dark:bg-dark-black lg:bg-transparent">
       <MenuItems title={settings?.title} menuItems={settings?.menuItems || []} />
     </header>
   )

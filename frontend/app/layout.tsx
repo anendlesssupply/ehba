@@ -17,17 +17,15 @@ import localFont from 'next/font/local'
 import {AppProvider} from '@/app/app-provider'
 import Footer from './components/Footer'
 
-const sans = localFont({
-  variable: '--font-sans',
+const display = localFont({
+  variable: '--font-display',
   src: [
     {
-      path: './fonts/AtlasGrotesk-Regular-Web.woff2',
+      // path: './fonts/Venus+Plomb.woff2',
+      // path: './fonts/Jakob-Semi-Condensed.woff2',
+      // path: './fonts/Karrik-Regular.woff2',
+      path: './fonts/Venus+Carrare.woff2',
       weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/AtlasGrotesk-Medium-Web.woff2',
-      weight: '700',
       style: 'normal',
     },
   ],
@@ -74,7 +72,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en" className={`${display.variable}`}>
       <body className="text-lg lg:text-xl">
         <AppProvider>
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}

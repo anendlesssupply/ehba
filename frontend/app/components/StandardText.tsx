@@ -10,10 +10,10 @@ type InfoProps = {
 
 export default function StandardText({block}: InfoProps) {
   return (
-    <div className="my-4 px-4 lg:px-10">
+    <div className="px-4 lg:px-10">
       {block?.content?.length && (
         <CustomPortableText
-          className="w-full mx-auto max-w-3xl grid gap-4"
+          className="w-full mx-auto lg:max-w-3xl grid gap-6"
           value={block.content as PortableTextBlock[]}
         />
       )}

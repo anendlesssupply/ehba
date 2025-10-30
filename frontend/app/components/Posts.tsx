@@ -17,7 +17,7 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
 
   return (
     <article data-sanity={attr()} key={_id}>
-      <Link className="hover:opacity-70" href={`/posts/${slug}`}>
+      <Link className="hover:text-gray dark:hover:text-dark-gray" href={`/posts/${slug}`}>
         <h3>{title}</h3>
         {date && (
           <time dateTime={date} className="text-base">
@@ -31,8 +31,8 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
 
 const Posts = ({children, heading}: {children: React.ReactNode; heading?: string}) => (
   <div className="px-4 lg:px-10 py-8 bg-yellow dark:bg-grey-brown ">
-    <div className="grid grid-cols-1 gap-6 lg:gap-8 max-w-3xl mx-auto w-full">
-      {heading && <h2 className="text-3xl">{heading}</h2>}
+    <div className="grid grid-cols-1 gap-6 lg:gap-8 lg:max-w-3xl mx-auto w-full">
+      {heading && <h2 className="font-display text-3xl">{heading}</h2>}
       <div className="grid grid-cols-1 gap-6 lg:gap-8">{children}</div>
     </div>
   </div>

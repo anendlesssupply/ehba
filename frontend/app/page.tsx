@@ -19,7 +19,7 @@ export default async function Page() {
           <figure className="grid grid-cols-1 gap-2 mb-12">
             <div>
               <CustomImage
-                className="h-[80vh] sm:h-auto sm:aspect-3/2 object-cover grayscale"
+                className="aspect-3/4 sm:aspect-3/2 object-cover object-[10%_50%]"
                 image={settings?.coverImage}
                 alt={stegaClean(settings?.coverImage?.alt) || ''}
                 sizes="100vw"
@@ -27,17 +27,17 @@ export default async function Page() {
             </div>
             {Array.isArray(settings?.coverImage?.caption) &&
               settings?.coverImage?.caption?.length > 0 && (
-                <figcaption className="text-xs text-pretty max-w-3xl mx-auto w-full">
+                <figcaption className="text-xs text-pretty lg:max-w-3xl mx-auto w-full">
                   <SimplePortableText value={settings?.coverImage?.caption as any} />
                 </figcaption>
               )}
           </figure>
         )}
 
-        <div className="max-w-3xl mx-auto w-full">
+        <div className="lg:max-w-3xl mx-auto w-full">
           {settings?.content && (
             <CustomPortableText
-              className="text-3xl lg:text-4xl text-pretty"
+              className="font-display text-3xl lg:text-3xl text-pretty"
               value={settings.content as any}
             />
           )}

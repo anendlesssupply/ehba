@@ -74,8 +74,8 @@ export default async function PostPage(props: Props) {
           </Link>
         </div>
         <div className="px-4 lg:px-10">
-          <div className="w-full max-w-3xl mx-auto grid gap-4">
-            <h2 className="text-3xl lg:text-5xl">{post.title}</h2>
+          <div className="w-full lg:max-w-3xl mx-auto grid gap-4">
+            <h2 className="font-display text-3xl lg:text-3xl">{post.title}</h2>
             {post?.date && (
               <time dateTime={post.date} className="text-base">
                 <DateComponent dateString={post.date} />
@@ -87,7 +87,7 @@ export default async function PostPage(props: Props) {
         <article className="px-4 lg:px-10 my-4">
           {post.content?.length && (
             <CustomPortableText
-              className="max-w-3xl mx-auto grid gap-4"
+              className="lg:max-w-3xl mx-auto grid gap-4"
               value={post.content as PortableTextBlock[]}
             />
           )}

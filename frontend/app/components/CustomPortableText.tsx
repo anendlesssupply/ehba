@@ -26,14 +26,14 @@ export default function CustomPortableText({
     block: {
       h2: ({children, value}) => {
         // Add an anchor to the h2
-        return <h2 className="text-2xl lg:text-3xl mt-8 mb-4 first:mt-0 last:mb-0">{children}</h2>
+        return <h2 className="font-display text-2xl lg:text-2xl mt-6 first:mt-0">{children}</h2>
       },
       normal: ({children}: {children?: any}) => {
         return <p className="text-pretty">{children}</p>
       },
       blockquote: ({children}: {children?: any}) => {
         return (
-          <blockquote className="border-l border-current pl-4 text-pretty my-4 first:mt-0 last:mb-0">
+          <blockquote className="border-l border-current pl-4 text-pretty my-6 first:mt-0 last:mb-0">
             {children}
           </blockquote>
         )
@@ -42,7 +42,10 @@ export default function CustomPortableText({
     marks: {
       link: ({children, value: link}) => {
         return (
-          <ResolvedLink className="underline hover:opacity-70 hover:no-underline" link={link}>
+          <ResolvedLink
+            className="underline decoration-from-font hover:text-gray dark:hover:text-dark-gray hover:no-underline"
+            link={link}
+          >
             {children}
           </ResolvedLink>
         )
@@ -87,7 +90,10 @@ export function SimplePortableText({
     marks: {
       link: ({children, value: link}) => {
         return (
-          <ResolvedLink className="underline hover:opacity-70 hover:no-underline" link={link}>
+          <ResolvedLink
+            className="underline decoration-from-font hover:text-gray dark:hover:text-dark-gray hover:no-underline"
+            link={link}
+          >
             {children}
           </ResolvedLink>
         )

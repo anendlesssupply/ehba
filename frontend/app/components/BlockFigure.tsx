@@ -10,7 +10,7 @@ export function BlockFigure(props: any = {}) {
   }
   return (
     <figure className="grid grid-cols-1 gap-2 my-4 first:mt-0 last:mb-0">
-      <div className="max-w-3xl">
+      <div className="lg:max-w-3xl">
         <CustomImage
           image={value}
           alt={stegaClean(value?.alt) || ''}

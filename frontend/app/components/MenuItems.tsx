@@ -24,8 +24,8 @@ export const NavItem = ({
     return null
   }
 
-  const linkClassName = classnames('hover:opacity-70', {
-    'opacity-70': pathname === href,
+  const linkClassName = classnames('hover:text-gray dark:hover:text-dark-gray', {
+    'text-gray dark:text-dark-gray': pathname === href,
   })
   return (
     <div>
@@ -56,12 +56,7 @@ export const NavItem = ({
   )
 }
 
-export default function MenuItems({
-  menuItems,
-  // className = 'flex flex-col lg:flex-row lg:flex-wrap text-3xl lg:gap-x-6',
-  isMobile = false,
-  title = 'EHBA',
-}: any) {
+export default function MenuItems({menuItems, isMobile = false, title = 'EHBA'}: any) {
   const {isNavOpen, setIsNavOpen} = useAppContext()
   const pathname = usePathname()
 
@@ -70,18 +65,18 @@ export default function MenuItems({
   }, [setIsNavOpen, pathname])
   return (
     <>
-      <div className="grid gap-6 lg:gap-8 grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[auto_minmax(0,1fr)] items-baseline">
+      <div className="font-display grid gap-6 lg:gap-8 grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[auto_minmax(0,1fr)] items-baseline">
         <div>
           <Link
             href="/"
             title={title}
-            className="flex w-auto h-8 lg:h-11 aspect-783/129 hover:opacity-70"
+            className="flex w-auto h-8 lg:h-11 aspect-783/129 hover:text-gray dark:hover:text-dark-gray"
           >
             <IconLogo className="w-full h-full" />
           </Link>
         </div>
         <button
-          className="lg:hidden text-3xl cursor-pointer hover:opacity-70"
+          className="lg:hidden text-3xl cursor-pointer hover:text-gray dark:hover:text-dark-gray"
           onClick={() => setIsNavOpen((prev: boolean) => !prev)}
           aria-expanded={isNavOpen} // tells screen readers if the menu is open
           aria-controls="mobile-menu" // links button to the controlled element
