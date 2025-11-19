@@ -9,7 +9,7 @@ import {defineField, defineType} from 'sanity'
 
 export const post = defineType({
   name: 'post',
-  title: 'Post',
+  title: 'Announcement',
   icon: DocumentTextIcon,
   type: 'document',
   fields: [
@@ -31,16 +31,6 @@ export const post = defineType({
       },
       validation: (rule) => rule.required(),
     }),
-    // defineField({
-    //   name: 'excerpt',
-    //   title: 'Excerpt',
-    //   type: 'text',
-    // }),
-    // defineField({
-    //   name: 'coverImage',
-    //   title: 'Cover Image',
-    //   type: 'figure',
-    // }),
     defineField({
       name: 'date',
       title: 'Date',

@@ -21,9 +21,6 @@ const display = localFont({
   variable: '--font-display',
   src: [
     {
-      // path: './fonts/Venus+Plomb.woff2',
-      // path: './fonts/Jakob-Semi-Condensed.woff2',
-      // path: './fonts/Karrik-Regular.woff2',
       path: './fonts/Venus+Carrare.woff2',
       weight: '400',
       style: 'normal',
@@ -85,9 +82,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             </>
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive
-          // onError={handleError}
-          />
+          <SanityLive onError={handleError} />
           <section className="grid grid-cols-1 items-start">
             <Header />
             <main className="grid grid-cols-1 items-start gap-6 lg:gap-8">{children}</main>

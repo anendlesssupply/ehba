@@ -66,11 +66,12 @@ export default async function PostPage(props: Props) {
     <>
       <div className="grid gap-6 lg:gap-8 mb-12 mt-4 lg:mt-12">
         <div
-          className="hidden lg:block px-4 lg:px-10 lg:fixed lg:top-50"
-          // className="px-4 lg:px-10 flex justify-end lg:sticky lg:top-14 lg:z-60"
+          // className="hidden lg:block px-4 lg:px-10 lg:fixed lg:top-50"
+          className="px-4 lg:px-10"
         >
-          <Link href="/">
-            <IconClose className="w-10 h-10" />
+          <Link href="/" className="text-base hover:text-gray dark:hover:text-dark-gray">
+            {/* <IconClose className="w-10 h-10" /> */}
+            <span aria-hidden>&larr;</span> Home
           </Link>
         </div>
         <div className="px-4 lg:px-10">

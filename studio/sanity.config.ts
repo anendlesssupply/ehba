@@ -3,7 +3,7 @@
  * Learn more: https://www.sanity.io/docs/configuration
  */
 
-import {defineConfig} from 'sanity'
+import {defineConfig, isDev} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
@@ -23,6 +23,8 @@ const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 // URL for preview functionality, defaults to localhost:3000 if not set
 const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+
+const devOnlyPlugins = [visionTool()]
 
 // Define the home location for the presentation tool
 const homeLocation = {
@@ -52,6 +54,11 @@ export default defineConfig({
   projectId,
   dataset,
 
+  tasks: {enabled: false},
+  scheduledPublishing: {enabled: false},
+  document: {
+    comments: {enabled: false},
+  },
   plugins: [
     structureTool({
       structure, // Custom studio structure configuration, imported from ./src/structure.ts
@@ -123,7 +130,7 @@ export default defineConfig({
       },
     }),
     // Additional plugins for enhanced functionality
-    visionTool(),
+    ...(isDev ? devOnlyPlugins : []),
   ],
 
   // Schema configuration, imported from ./src/schemaTypes/index.ts
