@@ -1,18 +1,10 @@
 {
   "name": "ehba",
-  "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
+  "description": "European Hardcourt Bikepolo Association",
   "keywords": [
     "Sanity",
-    "Next.js",
-    "Headless CMS",
-    "Visual Editing",
-    "Live Content API (LCAPI)",
-    "Real-time"
+    "Next.js"
   ],
-  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
-  "bugs": {
-    "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
-  },
   "workspaces": [
     "studio",
     "frontend"
@@ -22,14 +14,13 @@
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
     "format": "prettier --cache --write .",
-    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
     "lint": "npm run lint --workspace=frontend",
     "type-check": "npm run type-check --workspaces"
   },
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
-    "@sanity/prettier-config": "^2.0.1",
-    "npm-run-all2": "^5.0.2",
+    "@sanity/prettier-config": "^3.0.0",
+    "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2"
   }
 }
